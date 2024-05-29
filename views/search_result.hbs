@@ -1,0 +1,52 @@
+ <h2 class="text-center mt-4">Articles</h2>
+{{#each articleResults}}
+<div class="container">
+    <div class="row">
+        <div class="col-6 mx-auto mt-2">
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button {{#if @first}}{{else}}collapsed{{/if}}" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#article{{id}}"
+                            aria-expanded="{{#if @first}}true{{else}}false{{/if}}" aria-controls="collapseOne">
+                            <a class="link-underline-dark" href="/article/read/{{id}}">{{title}}</a>
+                        </button>
+                    </h2>
+                    <div id="article{{id}}" class="accordion-collapse collapse {{#if @first}}show{{/if}}"
+                        data-bs-parent="#accordion{{id}}">
+                        <div class="accordion-body text-truncate">
+                           <a href="/article/read/{{id}}" class="text-decoration-none">{{content}}</a> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    <h2 class="text-center mt-4">Commentaires</h2>
+    {{#each commentResults}}
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-6 mx-auto mt-2">
+                <div class="accordion" id="accordionExample2">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button {{#if @first}}{{else}}collapsed{{/if}}" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#article{{id}}"
+                                aria-expanded="{{#if @first}}true{{else}}false{{/if}}" aria-controls="collapseOne">
+                                <a class="link-underline-dark" href="/article/read/{{id}}">{{name}}</a>
+                            </button>
+                        </h2>
+                        <div id="article{{id}}" class="accordion-collapse collapse {{#if @first}}show{{/if}}"
+                            data-bs-parent="#accordion{{id}}">
+                            <div class="accordion-body text-truncate text-decoration-none">
+                               <a href="/article/read/{{articleId}}" class="text-decoration-none">{{comment}}</a> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}

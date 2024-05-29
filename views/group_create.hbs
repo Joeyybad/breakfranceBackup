@@ -1,0 +1,60 @@
+<main>
+    <h1 class="text-center">Créer un groupe</h1>
+
+    <div class="container mt-2">
+        <form action="/group/create" method="POST" onsubmit="return groupCheck()">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="groupName" class="mb-1 fs-4"> Nom du groupe</label>
+                        <input type="text" id="groupName" name="groupName" class="form-control border-primary-subtle">
+                        <div id="groupName-error" class="error-container"></div> <!-- Conteneur d'erreur -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mt-4">
+                <label for="groupDescription" class="mb-2 fs-4"><i class="bi bi-vector-pen"></i> Description
+                    groupe</label>
+                <textarea id="groupDescription" name="groupDescription" class="form-control border-primary-subtle"
+                    rows="4"></textarea>
+                <div id="groupDescription-error" class="error-container"></div> <!-- Conteneur d'erreur -->
+            </div>
+
+            <div class="row align-items-center">
+
+                <div class="form-group col-12">
+                    <div class="row">
+                        <label for="postal-code" class=" fs-4">Code Postal</label>
+                        <input class="input border border-info" type="text" id="postal-code" name="postal-code"
+                            aria-label="Code Postal" onclick="initializeEventHandlers()">
+                        <select name="city" class="" id="city" aria-label="input Selection de la ville">
+                            <option value="">--Choisissez une ville--</option>
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div id="city-error" class="error-container"></div>
+                    <div class="form-group col-12 mt-4">
+                        <label for="imgGroup" class="mb-2 fs-4"><i class="bi bi-image-fill fs-3 m-2"></i> Image</label>
+                        <input type="file" id="imgGroup" name="imgGroup" class="form-control border-primary-subtle">
+                        <div id="imgGroup-error" class="error-container"></div> <!-- Conteneur d'erreur -->
+
+                    </div>
+
+                    <button type="submit" class="btn rounded-pill btn-outline-primary mt-5 mb-2">Enregistrer le
+                        groupe</button>
+                    {{#if errors}}
+                    <div class="mb-4">
+                        {{#each errors}}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{this.msg}} <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        </div>
+                        {{/each}}
+                    </div>
+                    {{/if}}
+        </form>
+    </div>
+    <script src="/js/cityFetch.js" defer></script>
+    <script src="/js/groupCheck.js" defer></script>
+</main>

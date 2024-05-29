@@ -1,0 +1,127 @@
+<main>
+    <div class="container-fluid">
+        <div class="row mt-4 m">
+            <h1>Mon compte</h1>
+        </div>
+        <div class="row m-3">
+            {{#if user}}
+            <div class="col-lg-4 col-12 mb-1">
+                <h3>Prénom : {{user.dataValues.firstname}}</h3>
+                <div class="row">
+                    <h3>Nom : {{user.dataValues.lastname}}</h3>
+                </div>
+                <div class="row">
+                    <h3>Mail : {{user.dataValues.email}}</h3>
+                </div>
+                <div class="row">
+                    <h3>Ville : {{user.dataValues.city}}</h3>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12 mb-1">
+                <button class="editProfil submit btn btn-outline-primary" data-bs-toggle="modal"
+                    data-bs-target="#editProfileModal{{user.dataValues.id}}">
+                    <i class="bi bi-pen fs-1"></i>
+                </button>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    {{#if user}}
+    <div class="modal fade" id="editProfileModal{{user.dataValues.id}}" tabindex="-1"
+        aria-labelledby="editProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProfileModalLabel">Modifier le profil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form id="updateForm" action="/user/profil" method="POST"
+                        onsubmit="userUpdateCheck()">
+                        <!-- Prénom -->
+                        <div class="mb-1">
+                            <label for="editFirstname" class="form-label">Prénom</label>
+                            <input type="text" class="form-control" id="editFirstname" name="firstname"
+                                value="{{user.dataValues.firstname}}">
+                            <div id="editFirstname-error"></div>
+                        </div>
+
+                        <!-- Nom -->
+                        <div class="mb-1">
+                            <label for="editLastname" class="form-label">Nom</label>
+                            <input type="text" class="form-control" id="editLastname" name="lastname"
+                                value="{{user.dataValues.lastname}}">
+                            <div id="editLastname-error"></div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-1">
+                            <label for="editEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="editEmail" name="email"
+                                value="{{user.dataValues.email}}">
+                            <div id="editEmail-error"></div>
+                        </div>
+
+                        <!-- Ville -->
+                        <div class="mb-2">
+                            <label for="editCity" class="form-label">Ville</label>
+                            <input type="text" class="form-control" id="editCity" name="city"
+                                value="{{user.dataValues.city}}">
+
+                        </div>
+
+                        <!-- Code Postal -->
+                        <div class="mb-1">
+                            <label for="editPostalcode" class="form-label">Code Postal</label>
+                            <input class="input" type="text" id="postal-code" name="postal-code"
+                                aria-label="Code Postal" onclick="initializeEventHandlers()">
+
+                        </div>
+
+                        <!-- Nouvelle Ville -->
+                        <div class="mb-1">
+                            <label for="editcity" class="form-label"> Nouvelle Ville</label>
+                            <select name="newCity" class="mb-3 input newCity" id="city"
+                                aria-label="Selection de la ville">
+                                <option value="">--Choisissez une ville--</option>
+                            </select>
+
+                        </div>
+
+                        <!-- Ancien mot de passe -->
+                        <div class="mb-1">
+                            <label for="oldPassword" class="form-label">Ancien mot de passe</label>
+                            <input type="password" class="form-control" id="oldPassword" name="oldPassword">
+
+                        </div>
+
+                        <!-- Nouveau mot de passe -->
+                        <div class="mb-1">
+                            <label for="newPassword" class="form-label">Nouveau mot de passe</label>
+                            <input type="password" class="form-control" id="newPassword" name="newPassword">
+
+                        </div>
+
+                        <!-- Confirmer le mot de passe -->
+                        <div class="mb-1">
+                            <label for="confPassword" class="form-label">Confirmer le mot de passe</label>
+                            <input type="password" class="form-control" id="confPassword" name="confPassword">
+
+                        </div>
+                        <div id="error-container"></div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+</main>
+<script src="/js/userUpdateCheck.js" defer></script>
+<script src="/js/cityFetch.js" defer></script>

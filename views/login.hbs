@@ -1,0 +1,33 @@
+<main class="container" aria-labelledby="form-title">
+    <form class="form login-form " action="/user/login" method="post" onsubmit="return loginCheck() ">
+        <div class="d-flex justify-content-center align-items-center">
+            <p id="form-title" class="title">Connexion</p>
+        </div>
+        <p class="message">Connecte-toi ! <i class="bi bi-emoji-grin text-warning fs-5"></i></p>
+
+        {{#if error}}
+        <div class="mb-3">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{error.msg}} <button type="button" class="btn-close" data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+        {{/if}}
+
+        <label for="email">
+            <span>Email</span>
+            <input class="input" id="email" name="email" type="email" placeholder="" aria-label="Email">
+            <div id="email-error"></div> <!-- Container for email error message -->
+        </label>
+
+        <label for="password">
+            <span>Mot de passe</span>
+            <input class="input" id="password" name="password" type="password" placeholder="" aria-label="Mot de passe">
+            <div id="password-error"></div> <!-- Container for password error message -->
+        </label>
+
+        <button type="submit" class="submit mt-2 mx-auto d-block">Valider</button>
+        <p class="signin">Pas encore inscrit ? <a href="/user/register">Incris-toi!</a></p>
+    </form>
+</main>
+<script src="/js/loginCheck.js" defer></script> 

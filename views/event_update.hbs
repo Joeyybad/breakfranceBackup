@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Modifier un évènement</h1>
+            <form action="/event/update/{{event.id}}" method="post">
+                <div class="mb-2 fs-4">
+                    <label for="eventName" class="form-label">Titre de l'évent</label>
+                    <input name="eventName" type="text" class="form-control" id="eventName"
+                        placeholder="Titre de l'event" value="{{event_name}}">
+                </div>
+                </div>
+                <div class="mb-3">
+                    <label for="eventDescription" class="form-label mb-2 fs-4">Description de l'évènement</label>
+                    <textarea name="eventDescription" class="form-control" id="eventDescription"
+                        rows="5">{{event_description}}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label mb-2 fs-4">Date</label>
+                    <input name="eventDate" type="date" class="form-control" id="eventDate"
+                        placeholder="Date" value="{{event.event_date}}">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label mb-2 fs-4">Time</label>
+                        <input name="eventTime" type="text" class="form-control" id="eventTime"
+                            placeholder="Heure" value="{{event.event_time}}">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label mb-2 fs-4">Participants</label>
+                    <input name="availablePlace" type="number" class="form-control" id="availablePlace"
+                        placeholder="nombre de place" value="{{event.available_place}}">
+                </div>
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label mb-2 fs-4">City</label>
+                    <input name="city" type="text" class="form-control" id="city"
+                        placeholder="Ville" value="{{event.city}}">
+                </div>
+                {{!-- if isAdmin il peut modif--}}
+                <button type="submit" class="btn">Modifier</button>
+            </form>
+        </div>
+    </div>
+</div>

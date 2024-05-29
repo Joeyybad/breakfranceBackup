@@ -1,0 +1,78 @@
+<main>
+    <form class="form" id="registerForm" action="/user/register" method="post" onsubmit="registerCheck()"> 
+      <div class="d-flex justify-content-center align-items-center">
+        {{#if user}}
+        <p id="form-title" class="title">Modifier un compte</p>
+        {{else}}
+        <p id="form-title" class="title">Inscription</p>
+        {{/if}}
+      </div>
+      {{#if error}}
+      <div class="mb-3">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{error.msg}} <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+      {{/if}}
+     <p class="message">Inscris-toi ! <i class="bi bi-emoji-grin text-warning fs-5"></i></p>
+      <div class="flex">
+        <label for="firstname">
+          <span>Prénom</span>
+          <input class="input" id="firstname" name="firstname" type="text" placeholder="Entrez votre prénom"
+            aria-label="Prénom" >
+        </label>
+        <div id="firstname-error" class="error-container"></div>
+
+        <label for="lastname">
+          <span>Nom</span>
+          <input class="input" id="lastname" name="lastname" type="text" placeholder="Entrez votre nom" aria-label="Nom"
+           >
+        </label>
+        <div id="lastname-error" class="error-container"></div>
+      </div>
+      <label for="email">
+        <span>Email</span>
+        <input class="input" id="email" name="email" type="email" placeholder="Entrez votre email" aria-label="Email">
+      </label>
+      <div id="email-error" class="error-container"></div>
+
+      <label for="birthdate">
+        <span>Date de naissance</span>
+        <input class="input" id="date" name="date" type="date" placeholder="Date de naissance" aria-label="Date">
+      </label>
+      <div id="date-error" class="error-container"></div>
+
+      <label for="postal-code">
+        <span>Code Postal</span>
+        <input class="input" type="text" id="postal-code" name="postal-code" aria-label="Code Postal" onclick="initializeEventHandlers()">
+      </label>
+      <div id="postal-code-error" class="error-container"></div>
+
+      <label for="city">
+        <span>Ville</span>
+        <select name="city" class="mb-3 input" id="city" aria-label="Selection de la ville">
+          <option value="">--Choisissez une ville--</option>
+        </select>
+        <div id="city-error" class="error-container"></div>
+      </label>
+      
+      <label for="password">
+        <span>Mot de passe</span>
+        <input class="input" id="password" name="password" type="password" placeholder="Entrez votre mot de passe"
+          aria-label="Mot de passe">
+      </label>
+      <div id="password-error" class="error-container"></div>
+
+      <label for="confPassword">
+        <span>Confirm password</span>
+        <input class="input" id="confPassword" name="confPassword" type="password"
+          placeholder="Confirmez votre mot de passe" aria-label="Confirmez votre mot de passe">
+      </label>
+      <div id="confPassword-error" class="error-container"></div>
+
+      <button type="submit" class="submit mt-2 mx-auto d-block">Valider</button>
+      <p class="signin">Déjà inscrit ? <a href="/user/login">Connecte-toi</a></p>
+    </form>
+  </main>
+<script src="/js/cityFetch.js" defer></script>
+<script src="/js/registerCheck.js" defer></script>

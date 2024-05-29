@@ -1,0 +1,76 @@
+<div class="container">
+    <form action="/event/create" method="POST" onsubmit="return eventCheck()">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="eventName" class="fs-4">Nom de l'événement</label>
+                    <input type="text" id="eventName" name="eventName" class="form-control border-info-subtle"
+                        aria-label="Nom de l'événement">
+                    <div id="eventName-error" class="error-container"></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="eventDescription" class="mb-2 fs-4">Description de l'événement</label>
+            <textarea id="eventDescription" name="eventDescription" class="form-control border-info-subtle" rows="4"
+                aria-label="Description de l'événement"></textarea>
+            <div id="eventDescription-error" class="error-container"></div>
+        </div>
+        <div class="row align-items-center">
+            <div class="form-group col-6 ">
+                <label for="eventDate" class="mb-2 fs-4"><i class="bi bi-calendar m-2"></i>Date</label>
+                <input type="date" id="eventDate" name="eventDate" class="form-control border-info-subtle"
+                    aria-label="Date de l'événement">
+                <div id="eventDate-error" class="error-container"></div>
+            </div>
+            <div class="form-group col-6 ">
+                <label for="eventTime" class="mb-2 fs-4"><i class="bi bi-watch"></i>Heure de l'événement</label>
+                <input type="time" id="eventTime" name="eventTime" class="form-control border-info-subtle"
+                    placeholder="Par exemple 16:00" aria-label="Heure de l'événement">
+                <div id="eventTime-error" class="error-container"></div>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="form-group col-6 ">
+                <div class="row">
+                    <label for="postal-code" class=" fs-4">Code Postal</label>
+                    <input class="input border border-info" type="text" id="postal-code" name="postal-code"
+                        aria-label="Code Postal" onclick="initializeEventHandlers()">
+                    <select name="city" class="" id="city" aria-label="input Selection de la ville">
+                        <option value="">--Choisissez une ville--</option>
+                        <option value=""></option>
+                    </select>
+                </div>
+
+                <div id="city-error" class="error-container"></div>
+            </div>
+            <div class="form-group col-6 mx-auto ">
+                <label for="availablePlace" class=" fs-4"><i class="bi bi-person-fill-add m-2"></i> Nombre
+                    d'inscrits</label>
+                <input type="number" id="availablePlace" name="availablePlace" class="form-control border-info-subtle"
+                    aria-label="Place disponible">
+                <div id="registeredUser-error" class="error-container"></div>
+            </div>
+        </div>
+        <div class="row">
+            <label for="userImg" class=" fs-4">Image de l'event </label>
+            <input class="input border border-info " id="eventImg" name="eventImg" type="file"
+                aria-label="Image de l'event">
+        </div>
+        <button type="submit" class="btn rounded-pill btn-outline-info">Créer l'événement</button>
+        {{#if errors}}
+        <div class="mb-4">
+            {{#each errors}}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{this.msg}} <button type="button" class="btn-close" data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+            </div>
+            {{/each}}
+        </div>
+        {{/if}}
+    </form>
+
+</div>
+
+<script src="/js/cityFetch.js" defer></script>
+<script src="/js/eventCheck.js" defer></script>

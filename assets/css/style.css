@@ -1,0 +1,695 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Knewave&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Knewave&display=swap');
+
+/***********  Color Var and Police ***********/
+:root {
+
+    --bg-light: #FFFFFF;
+    --bg-light-grey: #D9D9D9;
+    --bg-blue:#0064A3;
+    --bg-darkblue: #163760;
+    --bg-darkred: #A30000;
+    --bg-green: #5CD451;
+    --bg-black: #000000;
+    --title-font: "Knewave", system-ui;
+    --main-font: "Inria", sans-serif;
+}
+
+/*********** General Style for all page ***********/
+body{
+  background-color: var(--bg-light) ;
+  
+}
+
+main {
+   overflow-y: auto;
+   max-height: calc(100vh - 150px);
+   margin: 10px;
+ }
+
+
+
+.navStyle {
+   background-color: var(--bg-light-grey);
+    
+}
+
+img {
+   width: 65px;
+   height: auto;
+   margin: 2px;
+}
+
+.navbar-brand {
+   color: black;
+   text-shadow: 2px 2px 2px white;
+}
+
+.navbar-brand:hover {
+   color: var(--bg-darkblue);
+}
+.nav-link{
+   font-size: large;
+}
+
+.nav-link:hover{
+   color: #097ba8;
+}
+.nav-link:hover{
+   color: #097ba8;
+}
+
+
+/* .navbar-nav a:active {
+   color: 
+} */
+
+.row {
+   margin-bottom:0.5rem;
+   margin-top:0.5rem;
+ }
+.footerStyle {
+   /* margin-top: 3rem; */
+    /* height: 4rem; */
+    background-color: var(--bg-darkblue);
+    color: var(--bg-light);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+}
+.lightFont{
+    color: var(--bg-light);
+}
+/* error class for front end errors handler */
+
+.error{
+    margin-top: 0px;
+    font-size: .75rem;
+    color: red;
+    margin-bottom: 0px;
+}
+
+input.error {
+   border-color: red;
+}
+/*********** Navbar ***********/
+
+/* Class for nav items */
+ .Knewave{
+   font-family: "Knewave";
+   /* color: var(--bg-black) */
+   
+} 
+
+h1{
+   font-family: "Knewave";
+   font-optical-sizing: auto;
+   font-weight: 400;
+   font-style: normal;
+   font-variation-settings: "wdth" 100;
+}
+h2 {
+   font-family: "Inria", sans-serif;
+   font-weight: bold;
+   margin: 4px 0px 10px 8px;
+}
+
+h3 {
+   font-family: "Inria", sans-serif;
+   font-weight: bold;
+   color: #0064A3;
+}
+
+
+p{
+   font-family: "Inria", sans-serif;
+   font-optical-sizing: auto;
+   font-style: normal;
+}
+
+/*********** Navbar END ***********/
+
+/********** HOME PAGE **********/
+
+/* Carrousel */
+#carouselExampleControls .carousel-item img {
+   object-fit: cover;
+   object-position: center;
+   height: 75vh;
+   min-height: 250px;
+   overflow: hidden;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   width: auto;
+   height: auto;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   color: #fff;
+}
+
+.carousel-control-prev {
+   left: 0;
+}
+
+.carousel-control-next {
+   right: 0;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+   width: 2rem; /* Adjust the size as needed */
+   height: 2rem; /* Adjust the size as needed */
+}
+
+/*CSS Button event home page */
+
+button {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 200px;
+   height: 50px;
+   border-radius: 50px;
+   border: 0;
+   outline: 0;
+   font-size: 18px;
+   background: #08f;
+   color: #fff;
+ }
+ 
+ svg {
+   margin: 0 0 0 10px;
+ }
+ 
+ button:hover svg {
+   margin: 0 0 0 25px;
+   transition: 0.3s;
+ }
+ 
+ button:not(:hover) svg {
+   transition: 0.3s;
+ }
+ 
+ button:active {
+   transform: scale(0.9, 0.9);
+   transition: 200ms;
+ }
+ 
+ button:not(:active) {
+   transition: 200ms;
+ }
+/* Table */
+
+table {
+	width: 750px; 
+	border-collapse: collapse; 
+	margin: 50px auto;
+	border-radius: 15px;
+    overflow: hidden;
+    -webkit-box-shadow: 9px 9px 18px -1px rgba(46, 46, 46, 0.9);
+   box-shadow: 9px 9px 18px -1px rgba(46, 46, 46, 0.9);
+   margin-bottom: 10px;
+}
+
+tr:nth-of-type(odd) { 
+	background: #eee; 
+}
+
+th { 
+	background: #3498db; 
+	color: white; 
+	font-weight: bold; 
+}
+
+td, th { 
+	padding: 10px; 
+	border: 1px solid #ccc; 
+	text-align: left; 
+	font-size: 18px;
+}
+
+/* 
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	table { 
+	  	width: 100%; 
+	}
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+	}
+
+	td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+		/* Label the data */
+		content: attr(data-column);
+
+		color: #000;
+		font-weight: bold;
+	}
+}
+ 
+
+/* 
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	table { 
+	  	width: 100%; 
+	}
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+	}
+
+	td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+		/* Label the data */
+		content: attr(data-column);
+
+		color: #000;
+		font-weight: bold;
+	}
+h2 {
+    font-family: "Inria", sans-serif;
+    font-weight: bold;
+    margin: 4px 0px 10px 8px;
+}
+
+h3 {
+    font-family: "Inria", sans-serif;
+    font-weight: bold;
+    color: #0064A3;
+}
+}
+
+/**************** CSS Research input HOME EVENT GROUP ******************/
+
+.search {
+   display: inline-block;
+   position: relative;
+   margin-left: 6px;
+ }
+ 
+ .search input[type="text"] {
+   width: 400px;
+   padding: 9px;
+   border: none;
+   border-radius: 20px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ }
+ 
+ .search button[type="submit"] {
+   background-color: #4e99e9;
+   border: none;
+   color: #fff;
+   cursor: pointer;
+   padding: 12px 20px;
+   border-radius: 20px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   position: absolute;
+   top: -3px;
+   right: 0;
+   transition: .9s ease;
+ }
+ 
+ .search button[type="submit"]:hover {
+   transform: scale(1.1);
+   color: rgb(255, 255, 255);
+   background-color: #163760;
+ }
+ 
+/**************** End CSS Research input *****************/
+
+/**************** HOME PAGE END *****************/
+
+
+
+
+/***************** REGISTER PAGE *****************/
+
+/*******  CSS Registration Form  *******/
+
+
+ 
+ .form {
+   display: flex;
+   /* margin-top: 100px; */
+   flex-direction: column;
+   width: 40%;
+   min-width: 550px;
+   margin-left: auto;
+   margin-right: auto;
+   background-color: #fff;
+   padding: 0px;
+   border-radius: 20px;
+   position: relative;
+   -webkit-box-shadow: 9px 9px 18px -1px rgba(46, 46, 46, 0.9);
+   box-shadow: 9px 9px 18px -1px rgba(46, 46, 46, 0.9);
+ 
+   margin-bottom: 40px ;
+ }
+ 
+ .title {
+   font-size: 28px;
+   color: #0064A3;
+   font-weight: 600;
+   letter-spacing: -1px;
+   position: relative;
+   display: flex;
+   align-items: center;
+   padding-left: 30px;
+ }
+ 
+ .message,
+ .signin {
+   color: #163760;
+   font-size: 16px;
+   font-style: italic;
+ }
+
+ .signin {
+   text-align: center;
+ }
+ 
+ .signin a {
+   color: #0064A3;
+ }
+ 
+ .signin a:hover {
+   text-decoration: underline #0064A3;
+ }
+ 
+ .flex {
+   display: flex;
+   width: 100%;
+   gap: 6px;
+ }
+ 
+ .form label {
+   position: relative;
+ }
+ 
+ .form label .input {
+   width: 100%;
+   padding: 10px 10px 20px 10px;
+   outline: 0;
+   border: 1.5px solid #0064A3;
+   border-radius: 10px;
+ }
+ 
+ .form label .input+span {
+   position: absolute;
+   left: 10px;
+   top: 15px;
+   color: grey;
+   font-size: 0.9em;
+   cursor: text;
+   transition: 0.3s ease;
+ }
+ 
+ .select {
+   border: 1.5px solid #0064A3;
+ }
+ 
+ .form label .input:placeholder-shown+span {
+   top: 15px;
+   font-size: 0.9em;
+ }
+ 
+ .form label .input:focus+span,
+ .form label .input:valid+span {
+   top: -1px;
+   font-size: 0.7em;
+   font-weight: 600;
+ }
+ 
+ .form label .input:valid+span {
+   color: rgb(0, 0, 0);
+ }
+ 
+ .submit {
+   border: none;
+   outline: none;
+   background-color: #0064A3;
+   padding: 10px;
+   border-radius: 10px;
+   color: #fff;
+   font-size: 16px;
+   transform: .3s ease;
+ }
+ 
+ .submit:hover {
+   background-color: rgb(56, 90, 194);
+   cursor: pointer;
+ }
+
+ /* Responsive Registration Form mobile */
+
+@media screen and (max-width: 812px) {
+   .form{
+     display: flex;
+     flex-direction: column;
+     gap: 5px;
+     width: 100%;
+     background-color: #fff;
+     padding: 20px;
+     border-radius: 20px;
+     position: relative;
+     -webkit-box-shadow: 9px 9px 18px -1px rgba(46, 46, 46, 0.9);
+     box-shadow: 9px 9px 18px -1px rgba(46, 46, 46, 0.9);
+   }
+ 
+ }
+ /******* END CSS Registration Form  ******/
+
+ /***************** END REGISTER PAGE *****************/
+
+ /***************** LOGIN PAGE *****************/
+
+
+/**********  CSS Login Form  **********/
+.container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   /* height: 100vh; */
+   /* Optionnel : centrer verticalement le formulaire sur la hauteur de la fenêtre */
+}
+
+.form {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+   width: 30%;
+   background-color: #fff;
+   padding: 20px;
+   border-radius: 20px;
+   position: relative;
+   -webkit-box-shadow: 9px 9px 18px -1px rgba(46, 46, 46, 0.9);
+   box-shadow: 9px 9px 18px -1px rgba(46, 46, 46, 0.9);
+}
+
+
+
+.title {
+   font-size: 28px;
+   color: #0064A3;
+   font-weight: 600;
+   letter-spacing: -1px;
+   position: relative;
+   display: flex;
+   align-items: center;
+}
+
+.message,
+
+
+.flex {
+   display: flex;
+   width: 100%;
+   gap: 6px;
+}
+
+.form label {
+   position: relative;
+}
+
+.form label .input {
+   width: 100%;
+   padding: 10px 10px 20px 10px;
+   outline: 0;
+   border: 1.5px solid #0064A3;
+   border-radius: 10px;
+}
+
+.form label .input+span {
+   position: absolute;
+   left: 10px;
+   top: 15px;
+   color: grey;
+   font-size: 0.9em;
+   cursor: text;
+   transition: 0.3s ease; 
+} 
+
+.form label .input:placeholder-shown+span {
+   top: 15px;
+   font-size: 0.9em;
+}
+
+.form label .input:focus+span,
+.form label .input:valid+span {
+   top: -1px;
+   font-size: 0.7em;
+   font-weight: 600;
+} 
+.form label .input:valid+span {
+   color: rgb(0, 0, 0);
+}
+
+.submit {
+   border: none;
+   outline: none;
+   background-color: #0064A3;
+   padding: 10px;
+   border-radius: 10px;
+   color: #fff;
+   font-size: 16px;
+   transform: .3s ease;
+}
+
+.submit:hover {
+   background-color: rgb(56, 90, 194);
+   cursor: pointer;
+}
+
+/**********  CSS Login Form  **********/
+/* Responsive Login Form Mobile*/
+
+@media screen and (max-width: 812px) {
+   .container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 80vh;
+   margin-top: 10px;
+   justify-content: center;
+   align-items: center;
+   margin-bottom: 10px;
+   /* Optionnel : centrer verticalement le formulaire sur la hauteur de la fenêtre */
+}
+ .form {
+   display: flex;
+   flex-direction: column;
+   gap: 5px;
+   width: 100%;
+   background-color: #fff;
+   padding: 20px;
+   border-radius: 20px;
+   position: relative;
+   -webkit-box-shadow: 9px 9px 18px -1px rgba(46, 46, 46, 0.9);
+   box-shadow: 9px 9px 18px -1px rgba(46, 46, 46, 0.9);
+ }
+
+}
+
+/***************** END LOGIN PAGE *****************/
+
+/***************** PROFIL PAGE *****************/
+
+.editProfil{
+   height: 100px;
+   width: 100px
+}
+
+
+
+/***************** END PROFIL PAGE *****************/
+
+
+
+/***************** GROUP PAGE *****************/
+.imgGroup {
+   max-width: 100%;
+   height: auto;
+}
+
+@media (max-width: 991.98px) {
+   .imgGroup {
+       max-width: 350px;
+   }
+   iframe {
+       max-width: 450px;
+       height: 350px;
+   }
+}
