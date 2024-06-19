@@ -59,13 +59,13 @@ function eventCheck() {
     }
 
     // Vérification du champ registeredUser
-    if (!registeredUser) {
-        error("Le nombre de joueurs est requis", "registeredUser");
-        return false;
-    } else if (isNaN(registeredUser) || registeredUser < 1 || registeredUser > 60) {
-        error("Le nombre de joueurs doit être compris entre 1 et 60", "registeredUser");
-        return false;
-    }
+    // if (!availablePlace) {
+    //     error("Le nombre de joueurs est requis", "availablePlace");
+    //     return false;
+    // } else if (isNaN(availablePlace) || availablePlace < 1 || availablePlace > 60) {
+    //     error("Le nombre de participants doit être compris entre 1 et 60", "availablePlace");
+    //     return false;
+    // }
 
     // Si aucune erreur, retour true
     return true;

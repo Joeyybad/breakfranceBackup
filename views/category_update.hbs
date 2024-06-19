@@ -1,34 +1,39 @@
-<h1 class="Knewave text-center">Modifier une catégorie</h1>
+<main>
+    <h1 class="Knewave text-center">Modifier une catégorie</h1>
 
-<div class="container mt-5">
-    <form action="/category/update/{{eventCategory.id}}" method="POST">
-        <div class="row">
-            <div class="col-6">
-                <div class="form-group">
-                    <label for="catName" class="mb-2 fs-4"><i class="bi bi-vector-pen"></i> Nom de la catégorie</label>
-                    <input type="text" id="catName" name="catName" class="form-control border-warning-subtle" value="{{eventCategory.cat_name}}">
+    <div class="container mt-5">
+        <form action="/category/update/{{eventCategory.id}}" method="POST">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="catName" class="mb-2 fs-4"><i class="bi bi-vector-pen"></i> Nom de la catégorie</label>
+                        <input type="text" id="catName" name="catName" class="form-control border-primary-subtle" value="{{category.cat_name}}" aria-describedby="catNameHelp">
+                        <small id="catNameHelp" class="form-text text-muted">Entrez le nom de la catégorie.</small>
+                    </div>
                 </div>
             </div>
-        </div>
-    
-        {{#if errors}}
-        <div class="mb-3">
-            {{#each errors}}
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{msg}} <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+            {{#if errors}}
+            <div class="mb-3" aria-live="polite">
+                {{#each errors}}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{msg}} <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {{/each}}
             </div>
-            {{/each}}
-        </div>
-        {{/if}}
-        {{#if error}}
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{error}}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        {{/if}}
+            {{/if}}
+            {{#if error}}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" aria-live="polite">
+                {{error}} <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {{/if}}
 
-
-        <button type="text" class="btn btn-warning mt-5 mb-2">Modifier la catégorie</button>
-    </form>
-</div>
-
-<script src="/js/userCheck.js" defer></script>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary mt-3">Modifier la catégorie</button>
+            </div>
+        </form>
+    </div>
+    
+    <a href="/category/list" class="badge rounded-pill text-bg-primary" aria-label="Retour à la liste des catégories">Retour</a>
+    <script src="/js/userCheck.js" defer></script>
+</main>

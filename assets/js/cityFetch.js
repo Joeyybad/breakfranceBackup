@@ -1,3 +1,4 @@
+
 // Fonction pour effectuer la requête API et mettre à jour la liste déroulante des villes
 async function updateCityList(postalCodeInput, citySelect) {
     const postalCode = postalCodeInput.value;

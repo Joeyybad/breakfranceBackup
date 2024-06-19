@@ -1,14 +1,16 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Knewave&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Knewave&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Knewave&display=swap');
 
 /***********  Color Var and Police ***********/
 :root {
 
     --bg-light: #FFFFFF;
-    --bg-light-grey: #D9D9D9;
+    --light-grey: #cacaca;
+    --bg-grey: #737373;
     --bg-blue:#0064A3;
     --bg-darkblue: #163760;
+    --bg-darkblue-opacity: rgba(22, 55, 96, 0.5);
     --bg-darkred: #A30000;
     --bg-green: #5CD451;
     --bg-black: #000000;
@@ -17,22 +19,39 @@
 }
 
 /*********** General Style for all page ***********/
+html, body {
+   height: 100%;
+   margin: 0;
+   padding: 0;
+   display: flex;
+   flex-direction: column;
+}
 body{
   background-color: var(--bg-light) ;
   
+}
+.rgpd{
+   font-family: var(--main-font);
+   font-size: 0.8em;
+}
+
+.description {
+   font-family: var(--main-font);
+   font-size: 1.2em;
 }
 
 main {
    overflow-y: auto;
    max-height: calc(100vh - 150px);
    margin: 10px;
+   flex: 1;
+   overflow-x: hidden;
  }
 
 
 
 .navStyle {
-   background-color: var(--bg-light-grey);
-    
+   background-color: var(--light-grey); 
 }
 
 img {
@@ -42,43 +61,116 @@ img {
 }
 
 .navbar-brand {
-   color: black;
-   text-shadow: 2px 2px 2px white;
+   color: var(--light-grey);
+   font-size: x-large;  
 }
+
+@media (max-width: 767.98px) {
+   .custom-toggler {
+     padding: 0.25rem 0.5rem; /* Ajustez les valeurs selon vos besoins */
+     font-size: 1rem; /* Ajustez la taille de la police si nécessaire */
+     width: 2.5rem; /* Ajustez la largeur du bouton */
+     height: 2.5rem; /* Ajustez la hauteur du bouton */
+   }
+ 
+   .custom-toggler .navbar-toggler-icon {
+     width: 1rem; /* Ajustez la largeur de l'icône */
+     height: 1rem; /* Ajustez la hauteur de l'icône */
+   }
+ }
 
 .navbar-brand:hover {
-   color: var(--bg-darkblue);
+   color: var(--bg-blue);
+}
+.navbar-brand{
+   font-family: var(--title-font);
+
 }
 .nav-link{
-   font-size: large;
+   font-family: var(--title-font);
+   font-size: x-large;
+   color: var(--light-grey);
 }
+.text-stroke{
+   -webkit-text-stroke-width: 1px;
+   -webkit-text-stroke-color: black;
+}
+
 
 .nav-link:hover{
    color: #097ba8;
 }
-.nav-link:hover{
-   color: #097ba8;
-}
 
-
-/* .navbar-nav a:active {
-   color: 
+/* .nav-link:active{
+   color:  ;
 } */
+
+
+/* Pseudo-classe active lors d'un clic */
+.nav-link:active {
+   color: var(--bg-blue);
+}
+
+/* Classe active définie dynamiquement */
+.nav-link.active {
+   color: var(--bg-blue);
+}
+
+/* Pour s'assurer que les éléments de menu déroulant fonctionnent aussi */
+.dropdown-item.active {
+   color: var(--bg-blue);
+}
 
 .row {
    margin-bottom:0.5rem;
    margin-top:0.5rem;
  }
 .footerStyle {
-   /* margin-top: 3rem; */
-    /* height: 4rem; */
+   margin-top: 1rem;
     background-color: var(--bg-darkblue);
     color: var(--bg-light);
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    left: 0;
+    padding: 1rem;
+    display: flex;
+    flex-wrap: nowrap;
 }
+.footer-link:hover{
+ color:var(--bg-light)
+}
+.condition{
+   color:var(--bg-light);
+   font-style: italic;
+}
+.contact{
+   font-style: italic;
+   color:var(--bg-light);
+}
+
+@media (max-width: 862px) {
+   .footerStyle {
+      margin-top: 3rem;
+       background-color: var(--bg-darkblue);
+       color: var(--bg-light);
+       font-size: 12px ;
+       padding: 1rem;
+      
+   }
+   .navbar-brand{
+      margin:0px;
+   }
+   .container-fluid{
+      padding:0;
+   }
+   img{
+      width: 55px;
+
+   }
+   .nav-link{
+      font-size: small;
+   }
+ }
+
+
+
 .lightFont{
     color: var(--bg-light);
 }
@@ -96,35 +188,30 @@ input.error {
 }
 /*********** Navbar ***********/
 
-/* Class for nav items */
- .Knewave{
-   font-family: "Knewave";
-   /* color: var(--bg-black) */
-   
-} 
+
 
 h1{
-   font-family: "Knewave";
+   font-family: var(--title-font);
    font-optical-sizing: auto;
    font-weight: 400;
    font-style: normal;
    font-variation-settings: "wdth" 100;
 }
 h2 {
-   font-family: "Inria", sans-serif;
+   font-family: var(--main-font);
    font-weight: bold;
    margin: 4px 0px 10px 8px;
 }
 
 h3 {
-   font-family: "Inria", sans-serif;
+   font-family: var(--main-font);
    font-weight: bold;
    color: #0064A3;
 }
 
 
 p{
-   font-family: "Inria", sans-serif;
+   font-family: var(--main-font);
    font-optical-sizing: auto;
    font-style: normal;
 }
@@ -134,12 +221,24 @@ p{
 /********** HOME PAGE **********/
 
 /* Carrousel */
+#carouselExampleControls {
+   margin-left: auto;
+   margin-right: auto;
+   width: 70%; 
+  
+}
+
 #carouselExampleControls .carousel-item img {
-   object-fit: cover;
+   object-fit: contain;
    object-position: center;
-   height: 75vh;
+   /* height: 75vh; */
    min-height: 250px;
+   height: 500px;
    overflow: hidden;
+   width: 100%; /* Assurez-vous que les images prennent toute la largeur de l'élément parent */
+   border-radius: 10px; /* Ajout d'un peu de courbure aux bords des images */
+
+
 }
 
 .carousel-control-prev,
@@ -152,22 +251,46 @@ p{
    display: flex;
    align-items: center;
    justify-content: center;
-   color: #fff;
+   
 }
 
 .carousel-control-prev {
    left: 0;
+   
 }
 
 .carousel-control-next {
    right: 0;
+   
 }
 
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-   width: 2rem; /* Adjust the size as needed */
-   height: 2rem; /* Adjust the size as needed */
+.carousel-control-prev-icon:first-child,
+.carousel-control-next-icon:first-child {
+   width: 2rem; 
+   height: 2rem; 
+   background-color: var(--bg-grey);
+   
 }
+@media (max-width: 767px) {
+   #carouselExampleControls .carousel-item img {
+      height: 50vh; 
+      min-height: 150px; 
+      transition: ease all .5s;
+   }
+
+   .carousel-control-prev-icon,
+   .carousel-control-next-icon {
+      width: 1.5rem;
+      height: 1.5rem; 
+   }
+
+   .carousel-control-prev,
+   .carousel-control-next {
+      width: 20px; 
+      height: 15px; 
+   }
+}
+
 
 /*CSS Button event home page */
 
@@ -247,11 +370,13 @@ only screen and (max-width: 760px),
 
 	table { 
 	  	width: 100%; 
+      transition: ease all .5s;
 	}
 
 	/* Force table to not be like tables anymore */
 	table, thead, tbody, th, td, tr { 
 		display: block; 
+      transition: ease all .5s;
 	}
 	
 	/* Hide table headers (but not display: none;, for accessibility) */
@@ -259,9 +384,16 @@ only screen and (max-width: 760px),
 		position: absolute;
 		top: -9999px;
 		left: -9999px;
+      transition: ease all .5s;
 	}
 	
 	tr { border: 1px solid #ccc; }
+
+   #eventsByLocationContainer {
+      width: 100%;
+      padding: 0 10px; 
+      box-sizing: border-box;
+    }
 	
 	td { 
 		/* Behave  like a "row" */
@@ -269,6 +401,7 @@ only screen and (max-width: 760px),
 		border-bottom: 1px solid #eee; 
 		position: relative;
 		padding-left: 50%; 
+      transition: ease all .5s;
 	}
 
 	td:before { 
@@ -285,72 +418,10 @@ only screen and (max-width: 760px),
 
 		color: #000;
 		font-weight: bold;
+      transition: ease all .5s;
 	}
 }
  
-
-/* 
-Max width before this PARTICULAR table gets nasty
-This query will take effect for any screen smaller than 760px
-and also iPads specifically.
-*/
-@media 
-only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 1024px)  {
-
-	table { 
-	  	width: 100%; 
-	}
-
-	/* Force table to not be like tables anymore */
-	table, thead, tbody, th, td, tr { 
-		display: block; 
-	}
-	
-	/* Hide table headers (but not display: none;, for accessibility) */
-	thead tr { 
-		position: absolute;
-		top: -9999px;
-		left: -9999px;
-	}
-	
-	tr { border: 1px solid #ccc; }
-	
-	td { 
-		/* Behave  like a "row" */
-		border: none;
-		border-bottom: 1px solid #eee; 
-		position: relative;
-		padding-left: 50%; 
-	}
-
-	td:before { 
-		/* Now like a table header */
-		position: absolute;
-		/* Top/left values mimic padding */
-		top: 6px;
-		left: 6px;
-		width: 45%; 
-		padding-right: 10px; 
-		white-space: nowrap;
-		/* Label the data */
-		content: attr(data-column);
-
-		color: #000;
-		font-weight: bold;
-	}
-h2 {
-    font-family: "Inria", sans-serif;
-    font-weight: bold;
-    margin: 4px 0px 10px 8px;
-}
-
-h3 {
-    font-family: "Inria", sans-serif;
-    font-weight: bold;
-    color: #0064A3;
-}
-}
 
 /**************** CSS Research input HOME EVENT GROUP ******************/
 
@@ -387,6 +458,22 @@ h3 {
    color: rgb(255, 255, 255);
    background-color: #163760;
  }
+
+ /* Media Queries for screens smaller than 429px */
+@media (max-width: 429px) {
+   .search input[type="text"] {
+      width: 300px; /* Ajustez la largeur selon vos besoins */
+      padding: 8px;
+      transition: ease all .5s;
+   }
+
+   .search button[type="submit"] {
+      padding: 5px 5px;
+      top: -2px; /* Ajustez la position selon vos besoins */
+      width: 150px;
+      transition: ease all .5s;
+   }
+}
  
 /**************** End CSS Research input *****************/
 
@@ -399,8 +486,6 @@ h3 {
 
 /*******  CSS Registration Form  *******/
 
-
- 
  .form {
    display: flex;
    /* margin-top: 100px; */
@@ -513,22 +598,80 @@ h3 {
    cursor: pointer;
  }
 
+ .mdptexte{
+
+   font-size: 12px;
+   color:#163760 ;
+ }
+
+/**** Checkbox CSS registerform ****/
+
+/* Hide the default checkbox */
+.containerCheckbox input {
+   position: absolute;
+   opacity: 0;
+   cursor: pointer;
+   height: 0;
+   width: 0;
+ }
+ 
+ 
+ /* Create a custom checkbox */
+ .checkmark {
+   position: relative;
+   top: 0;
+   left: 0;
+   height: 1.3em;
+   width: 1.3em;
+   background-color: #ccc;
+   border-radius: 0.2pc;
+   box-shadow: 3px 3px grey;
+ }
+ 
+ /* When the checkbox is checked, add a blue background */
+ .containerCheckbox input:checked ~ .checkmark {
+   background-image: linear-gradient(90deg, aqua, blue);
+ }
+ 
+ /* Create the checkmark/indicator (hidden when not checked) */
+ .checkmark:after {
+   content: "";
+   position: absolute;
+   display: none;
+ }
+ 
+ /* Show the checkmark when checked */
+ .containerCheckbox input:checked ~ .checkmark:after {
+   display: block;
+ }
+ 
+ /* Style the checkmark/indicator */
+ .containerCheckbox .checkmark:after {
+   left: 0.45em;
+   top: 0.25em;
+   width: 0.25em;
+   height: 0.5em;
+   border: solid white;
+   border-width: 0 0.15em 0.15em 0;
+   transform: rotate(45deg);
+ }
  /* Responsive Registration Form mobile */
 
-@media screen and (max-width: 812px) {
-   .form{
+ @media screen and (max-width: 812px) {
+   .form {
      display: flex;
      flex-direction: column;
      gap: 5px;
-     width: 100%;
+     width: 90%;
+     min-width: unset;
      background-color: #fff;
      padding: 20px;
      border-radius: 20px;
      position: relative;
      -webkit-box-shadow: 9px 9px 18px -1px rgba(46, 46, 46, 0.9);
      box-shadow: 9px 9px 18px -1px rgba(46, 46, 46, 0.9);
+     transition: ease all .5s;
    }
- 
  }
  /******* END CSS Registration Form  ******/
 
@@ -647,6 +790,7 @@ h3 {
    align-items: center;
    margin-bottom: 10px;
    /* Optionnel : centrer verticalement le formulaire sur la hauteur de la fenêtre */
+   transition: ease all .5s;
 }
  .form {
    display: flex;
@@ -659,6 +803,7 @@ h3 {
    position: relative;
    -webkit-box-shadow: 9px 9px 18px -1px rgba(46, 46, 46, 0.9);
    box-shadow: 9px 9px 18px -1px rgba(46, 46, 46, 0.9);
+   transition: ease all .5s;
  }
 
 }
@@ -680,16 +825,36 @@ h3 {
 
 /***************** GROUP PAGE *****************/
 .imgGroup {
-   max-width: 100%;
+   width : 500px;
+   height: auto;
    height: auto;
 }
 
 @media (max-width: 991.98px) {
    .imgGroup {
        max-width: 350px;
+       transition: ease all .5s;
    }
    iframe {
        max-width: 450px;
        height: 350px;
+       transition: ease all .5s;
    }
+}
+
+/***************** EVENT PAGE *****************/
+/* eventlist */
+.imgCover{
+   width: 500px;
+   height: auto;
+   align-self: center;
+
+}
+
+/* eventRead */
+
+
+.imgSize{
+   max-height: 450px ;
+   height: 450px;
 }

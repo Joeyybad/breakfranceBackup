@@ -1,43 +1,45 @@
-<div class="container-fluid">
-    <div class="row">
-        <h1 class="text-center">Crews</h1>
-    </div>
-    <div class="row">
-        <div class="col-12 d-flex justify-content-center mt-3">
-            <form action="/group/search" method="post" class="search mb-5">
-                <input name="search" placeholder="Recherche" type="text">
-                <button type="submit"><i class="bi bi-search m-2"></i>Go</button>
-            </form>
+<main aria-labelledby="crews-title">
+    <div class="container-fluid">
+        <div class="row">
+            <h1 class="text-center" id="crews-title">Crews</h1>
         </div>
-    </div>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center mt-3">
+                <form action="/group/search" method="post" class="search mb-5" aria-label="Formulaire de recherche de groupes">
+                    <input name="search" placeholder="Recherche" type="text" aria-label="Champ de recherche">
+                    <button type="submit" aria-label="Rechercher"><i class="bi bi-search m-2" aria-hidden="true"></i>Go</button>
+                </form>
+            </div>
+        </div>
 
-    <div class="row">
-        <div class="col-11 mx-auto">
-            {{#if groupResults}}
-            <h3> Résultats : </h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Groupe</th>
-                        <th></th>
-                        <th>Adresse</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each groupResults}}
-                    <tr>
-                        <td data-column="Crew"><a href="/group/read/{{id}}">{{group_name}}</a></td>
-                        <td data-column=""></td>
-                        <td data-column="Location">{{group_city}}</td>
-                        <td data-column=""></td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-            {{else}}
-            <p class="text-center">Aucun groupe trouvé.</p>
-            {{/if}}
+        <div class="row">
+            <div class="col-11 mx-auto">
+                {{#if groupResults}}
+                <h3> Résultats : </h3>
+                <table aria-label="Liste des groupes">
+                    <thead>
+                        <tr>
+                            <th>Groupe</th>
+                            
+                            <th>Adresse</th>
+                        
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each groupResults}}
+                        <tr>
+                            <td data-column="Crew"><a href="/group/read/{{id}}" aria-label="Lien vers le groupe {{group_name}}">{{group_name}}</a></td>
+                            
+                            <td data-column="Location">{{group_city}}</td>
+                        
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                {{else}}
+                <p class="text-center">Aucun groupe trouvé.</p>
+                {{/if}}
+            </div>
         </div>
     </div>
-</div>
+</main>

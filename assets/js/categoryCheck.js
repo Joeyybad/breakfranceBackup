@@ -1,7 +1,21 @@
-function caterogyCheck(){
-    // Récupération des valeurs des champs du formulaire
-    const catName = document.getElementById('catName').value.trim();
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('categoryForm');
+    if (form) {
+        form.addEventListener('submit', function(event) {
+            if (!categoryCheck()) {
+                event.preventDefault(); // Empêche l'envoi du formulaire si des erreurs sont présentes
+            }
+        });
+    }
+});
 
+function categoryCheck(){
+    
+    resetErrors()
+    // Récupération des valeurs des champs du formulaire
+    
+    const catName = document.getElementById('catName').value.trim();
+   
     // Vérification du champ catName
     if (!catName || catName.length < 2 || catName.length > 50) {
         error("Le nom de la catégorie doit comporter entre 2 et 50 caractères", "catName");

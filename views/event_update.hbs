@@ -1,42 +1,56 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Modifier un évènement</h1>
-            <form action="/event/update/{{event.id}}" method="post">
-                <div class="mb-2 fs-4">
-                    <label for="eventName" class="form-label">Titre de l'évent</label>
-                    <input name="eventName" type="text" class="form-control" id="eventName"
-                        placeholder="Titre de l'event" value="{{event_name}}">
-                </div>
-                </div>
-                <div class="mb-3">
-                    <label for="eventDescription" class="form-label mb-2 fs-4">Description de l'évènement</label>
-                    <textarea name="eventDescription" class="form-control" id="eventDescription"
-                        rows="5">{{event_description}}</textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label mb-2 fs-4">Date</label>
-                    <input name="eventDate" type="date" class="form-control" id="eventDate"
-                        placeholder="Date" value="{{event.event_date}}">
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label mb-2 fs-4">Time</label>
-                        <input name="eventTime" type="text" class="form-control" id="eventTime"
-                            placeholder="Heure" value="{{event.event_time}}">
+<main>
+    <div class="container" aria-labelledby="edit-event-title">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 id="edit-event-title">Modifier un évènement</h1>
+                <form action="/event/update/{{event.id}}" method="post" enctype="multipart/form-data">
+                    <div class="mb-2 fs-4">
+                        <label for="eventName" class="form-label">Titre de l'évent</label>
+                        <input name="eventName" type="text" class="form-control" id="eventName"
+                            placeholder="Titre de l'event" value="{{event.event_name}}"
+                            aria-label="Titre de l'événement">
                     </div>
-                </div>
+            </div>
+            <div class="mb-3">
+                <label for="eventDescription" class="form-label mb-2 fs-4">Description de l'évènement</label>
+                <textarea name="eventDescription" class="form-control" id="eventDescription" rows="5"
+                    aria-label="Description de l'événement">{{event.event_description}}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label mb-2 fs-4">Date</label>
+                <input name="eventDate" type="date" class="form-control" id="eventDate" placeholder="Date"
+                    value="{{ event.event_date}}" aria-label="Date de l'événement">
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label mb-2 fs-4">Participants</label>
-                    <input name="availablePlace" type="number" class="form-control" id="availablePlace"
-                        placeholder="nombre de place" value="{{event.available_place}}">
+                    <label for="exampleFormControlInput1" class="form-label mb-2 fs-4">Time</label>
+                    <input name="eventTime" type="text" class="form-control" id="eventTime" placeholder="Heure"
+                        value="{{formatTime event.event_time " HH:mm"}}" aria-label="Heure de l'événement">
                 </div>
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label mb-2 fs-4">City</label>
-                    <input name="city" type="text" class="form-control" id="city"
-                        placeholder="Ville" value="{{event.city}}">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label mb-2 fs-4">Participants</label>
+                <input name="availablePlace" type="number" class="form-control" id="availablePlace"
+                    placeholder="nombre de place" value="{{event.available_place}}" aria-label="Nombre de participants">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label mb-2 fs-4">City</label>
+                <input name="city" type="text" class="form-control" id="city" placeholder="Ville" value="{{event.city}}"
+                    aria-label="Ville de l'événement">
+            </div>
+            <div class="mb-3">
+                <label for="eventImg" class="fs-4">Image de l'événement</label>
+                <input class="input border border-info" id="eventImg" name="eventImg" type="file"
+                    aria-label="Image de l'événement">
+                <!-- Hidden input to hold the current image URL -->
+                <input type="hidden" name="currentEventImg" value="{{event.event_image}}">
+                <!-- Preview of the current image -->
+                <div class="mt-2">
+                    <img src="{{event.event_image}}" alt="Image actuelle de l'événement" style="max-width: 100%;">
                 </div>
-                {{!-- if isAdmin il peut modif--}}
-                <button type="submit" class="btn">Modifier</button>
+            </div>
+            <div class="col-12 text-center">
+                <button type="submit" class="btn btn-warning">Modifier</button>
+            </div>
             </form>
         </div>
     </div>
-</div>
+</main>

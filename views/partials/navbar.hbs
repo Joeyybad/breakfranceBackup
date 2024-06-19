@@ -1,61 +1,94 @@
-<nav class="navbar navbar-expand-lg navStyle sticky-top mb-2 Knewave">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">
-      <img src="/images/LogoBreakFranceHeader.webp" alt="logo BreakFrance" />
-      BreakFrance
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link {{#if navFaq}} active {{/if}}" href="/faq"></i>Faq</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {{#if navHome}} active {{/if}}" href="/"><i class="bi bi-house"></i>Home</a>
-        </li>
-
-       {{#if firstname}}
+<header>
+  <nav class="navbar navbar-expand-lg navStyle sticky-top mb-2">
+    <div class="container-fluid">
+      <a class="navbar-brand text-stroke" href="/">
+        <img src="/images/LogoBreakFranceHeader.webp" alt="logo BreakFrance" />
+        BreakFrance
+      </a>
+      <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link text-danger" href="/user/logout"><i class="bi bi-box-arrow-right text-danger"></i>Se
+            <a class="nav-link text-stroke {{#if navFaq}} active {{/if}}" href="/faq"></i>Faq</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-stroke {{#if navHome}} active {{/if}}" href="/"><i class="bi bi-house"></i>Home</a>
+          </li>
+
+          {{#if firstname}}
+          <li class="nav-item">
+            <a class="nav-link text-stroke text-danger" href="/user/logout"><i
+                class="bi bi-box-arrow-right text-danger"></i>Se
               déconnecter</a>
           </li>
-        {{else}}
+          {{else}}
           <li class="nav-item">
-            <a class="nav-link {{#if navUser}} active {{/if}}" href="/user/register">S'inscrire</a>
+            <a class="nav-link text-stroke{{#if navUser}} active {{/if}}" href="/user/register">S'inscrire</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link connexion {{#if navLogin}} active {{/if}}" href="/user/login"> <i
+            <a class="nav-link text-stroke {{#if navLogin}} active {{/if}}" href="/user/login"> <i
                 class="bi bi-box-arrow-in-left"></i>Se connecter</a>
           </li>
+          {{/if}}
+
+          <li class="nav-item">
+            <a class="nav-link text-stroke {{#if navEventlist}} active {{/if}}" href="/event/list">Events</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-stroke {{#if navGrouplist}} active {{/if}}" href="/group/list">Groupes</a>
+          </li>
+
+          {{#if isModerator}}
+          <li class="nav-item dropdown">
+            <a class="nav-link text-stroke dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Moderateurs
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item {{#if navEventCreate}} active {{/if}}" href="/event/create">Créer un event</a>
+              </li>
+              <li><a class="dropdown-item {{#if navGroupCreate}} active {{/if}}" href="/group/create">Créer un groupe de
+                  danse</a></li>
+              <li><a class="dropdown-item {{#if navUserList}} active {{/if}}" href="/event/registrated/users">Voir les
+                  inscrits</a></li>
+            </ul>
+          </li>
+          {{/if}}
+
+          {{#if isAdmin}}
+          <li class="nav-item dropdown">
+            <a class="nav-link text-stroke dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Administrateur
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item {{#if navEventCreate}} active {{/if}}" href="/event/create">Créer un event</a>
+              </li>
+              <li><a class="dropdown-item {{#if navGroupCreate}} active {{/if}}" href="/group/create">Créer un groupe de
+                  danse</a></li>
+              <li><a class="dropdown-item {{#if navCatCreate}} active {{/if}}" href="/category/create">Créer des
+                  catégories</a></li>
+              <li><a class="dropdown-item {{#if navCatList}} active {{/if}}" href="/category/list">Liste des
+                  catégories</a></li>
+              <li><a class="dropdown-item {{#if navUserList}} active {{/if}}" href="/user/list">Voir les
+                  utilisateurs</a></li>
+              <li><a class="dropdown-item {{#if navRegistratedUser}} active {{/if}}"
+                  href="/event/registrated/users">Voir les inscrits</a></li>
+            </ul>
+          </li>
+          {{/if}}
+        </ul>
+
+        {{#if firstname}}
+
+        <p class="mr-1 mt-4"> bonjour {{firstname}}</p>
+
         {{/if}}
-
-        <li class="nav-item">
-          <a class="nav-link {{#if navEvent}} active {{/if}}" href="/event/list">Events</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {{#if navEvent}} active {{/if}}" href="/group/list">Groupes</a>
-        </li>
-        {{#if isModerator}}
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Administration
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/event/create">Créer un event</a></li>
-            <li><a class="dropdown-item" href="/group/create">Créer un groupe de danse</a></li>
-          </ul>
-        </li>
-        {{/if}}
-      </ul>
-      {{#if firstname}}
-
-      <p class="mr-1 mt-4"> bonjour {{firstname}}</p>
-
-      {{/if}}
-      <a href="/user/profil/{{session.uid}}" <i class="bi bi-person-circle text-dark fs-2 float-end"></i></a>
+        <a href="/user/profil/:id" <i class="bi bi-person-circle text-dark fs-2 float-end"></i></a>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</header>

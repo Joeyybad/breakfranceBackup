@@ -1,36 +1,82 @@
-<main>
+<main aria-labelledby="group-title">
     <div>
         <div class="row mt-4">
             <div class="col-lg-5">
+
                 <div class="card" style="width: 30rem;">
                     <div class="card-body">
-                        <h5 class="card-title">Legiteam Obxtruxion</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-                        <p class="card-text">Les derniers champions de France</p>
-                        <p class="card-text">Effectif :</p>
-                        <p class="card-text">Contact</p>
+                        <h5 class="card-title" id="group-title">{{group.group_name}}</h5>
+                        <p class="card-text">{{group.group_description}}</p>
+                        
                     </div>
                 </div>
             </div>
             <div class="col-lg-5 offset-lg-1 mt-3 mt-lg-0">
                 <iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
                     src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=MJC%20ronceray+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
-                    <a href="https://www.gps.ie/">gps trackers</a>
+                    <a href="https://www.gps.ie/" aria-hidden="true">gps trackers</a>
                 </iframe>
             </div>
         </div>
         <div class="row mt-3">
             <div class="col-lg-5 d-flex align-items-center">
-                <img src="../assets/image/legiteamOb.jpg" alt="TeamPhoto" class="w-100 imgGroup">
+                <img src="/{{group.group_img}}" class="imgGroup" alt="TeamPhoto" class="w-100">
             </div>
             <div class="col-lg-5 offset-lg-1 mt-3 mt-lg-0 d-lg-flex justify-content-center">
                 <div class="card mt-3" style="width: 20rem;">
                     <div class="card-body">
                         <h5 class="card-title">Legiteam Obxtruxion</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                        <p class="card-text">{{group.group_city}}</p>
                         <p class="card-text">Les derniers champions de France</p>
+                         {{#if (or isAdmin (eq userId group.userId))}}
+                        <button type="button" class="btn btn-info mt-4" data-bs-toggle="modal"
+                            data-bs-target="#editGroupModal">
+                            Modifier le groupe
+                        </button>
+                        {{/if}}
                     </div>
                 </div>
+            </div>
+        </div>
+        <a href="/group/list" class="badge rounded-pill text-bg-primary" aria-label="lien retour">Retour</a>
+    </div>
+    <!-- Modale pour modifier le groupe -->
+    <div class="modal fade" id="editGroupModal" tabindex="-1" aria-labelledby="editGroupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editGroupModalLabel">Modifier le groupe</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/group/update/{{group.id}}" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="groupName" class="mb-1 fs-4">Nom du groupe</label>
+                            <input type="text" id="groupName" name="groupName"
+                                class="form-control border-primary-subtle" value="{{group.group_name}}" aria-label="Nom du groupe">
+                        </div>
+                        <div class="form-group mt-4">
+                            <label for="groupDescription" class="mb-2 fs-4">Description du groupe</label>
+                            <textarea id="groupDescription" name="groupDescription"
+                                class="form-control border-primary-subtle"
+                                rows="4">{{group.group_description}}</textarea>
+                        </div>
+                        <div class="form-group mt-4">
+                            <label for="city" class="mb-2 fs-4">Ville</label>
+                            <input type="text" id="city" name="city" class="form-control border-primary-subtle"
+                                value="{{group.group_city}}" aria-label="Ville">
+                        </div>
+                        <div class="form-group mt-4">
+                            <label for="imgGroup" class="mb-2 fs-4">Image</label>
+                            <input type="file" id="imgGroup" name="imgGroup" class="form-control border-primary-subtle" aria-label="Image du groupe">
+                            <img src="/{{group.group_img}}" alt="Group Image" class="mt-2 w-100">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -1,31 +1,29 @@
 <main>
-    <h2 class="text-start "> A la une</h2>
+    <h1 class="text-start">A la une</h1>
+    
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="/images/59129546_586103048549993_8823652534561275904_o.webp" class="d-block w-100" alt="...">
+            {{#each events}}
+            <div class="carousel-item {{#if @first}}active{{/if}}">
+                <img src="{{#if event_image }} {{event_image}} {{else}} /images/eventNotFound.png {{/if}}" class="d-block w-100" alt="Event image">
+                <div class="carousel-caption d-none d-sm-block">
+                    <a href="/event/read/{{this.id}}" class="btn rounded-pill border-light text-bg-primary">{{this.event_name}}  <i class="bi bi-arrow-up-right-square-fill"></i></a>
+                </div>
             </div>
-            <div class="carousel-item active ">
-                <img src="/images/b-boy-mathis-red-bull-bc-one-camp-france-2022.webp" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item active">
-                <img src="/images/format-page-Facebook.webp" class="d-block w-100" alt="...">
-            </div>
+            {{/each}}
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-            data-bs-slide="prev">
+        <button class="carousel-control-prev " type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <button class="carousel-control-next " type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon " aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
     </div>
     <div class="row text-end">
         <div class=" col-12 mx-auto">
-            <a href="" class="btn  mt-1 me-5">
+            <a href="/event/list" class="btn  mt-1 me-5">
                 <button> Voir les Events
                     <svg viewBox="0 0 16 16" class="bi bi-arrow-right" fill="currentColor" height="20" width="20"
                         xmlns="http://www.w3.org/2000/svg">
@@ -38,42 +36,14 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12 mx-auto ">
-            <h2> Autour de moi </h2>
-            <form action="/search" method="post" class="search mb-5">
-                <input name="search" placeholder="Recherche" type="text">
-                <button type="submit"><i class="bi bi-search m-2"></i>Go</button>
-            </form>
-        </div>
+        <p class="description text-center p-2">Bienvenue sur break france le site qui référencie les events de
+            breakdance dans les communes de france. Les groupes de danses, association proposent différents evenements
+            comme les entrainements les shows compétitions directement sur la plateforme </p>
     </div>
     <div class="row">
-        <div class="col-12 d-flex justify-content-center">
-            {{#if eventResults}}
-            <h3> Résultats : </h3>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Event</th>
-                        <th></th>
-                        <th>Adresse</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each eventResults}}
-                    <tr>
-                        <td data-column="Event"><a href="/event/read/{{id}}">{{event_name}}</a></td>
-                        <td data-column=""></td>
-                        <td data-column="lieux">{{city}}</td>
-                        <td data-column=""></td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-            {{else}}
-
-            {{/if}}
+        <div class="col-12 col-sm-12 d-flex justify-content-center mb-3">
+            <div id="eventsByLocationContainer"></div>
         </div>
     </div>
+    <script src="/js/geolocation.js" defer></script>
 </main>

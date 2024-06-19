@@ -1,9 +1,7 @@
 const { DataTypes } = require('sequelize');
 const config = require('../../config');
-const Categorie = require('./categorieModel');
-const Group = require('./groupModel');
-const Comment = require('./commentModel');
-const GroupEvent = require('./groupEventModel');
+const Categorie = require('./categoryModel');
+
 
 const Event = config.sequelize.define('events', {
     id: {
@@ -37,12 +35,13 @@ const Event = config.sequelize.define('events', {
     city: {
         type: DataTypes.STRING,
         allowNull: false
-    }
+    },
+  
 });
 
-Event.hasOne(Categorie);
-Group.belongsToMany(Event, { through: GroupEvent });
-Event.belongsToMany(Group, { through: GroupEvent });
+Event.belongsTo(Categorie);
+// Group.belongsToMany(Event, { through: GroupEvent });
+// Event.belongsToMany(Group, { through: GroupEvent });
 
 
 module.exports = Event;

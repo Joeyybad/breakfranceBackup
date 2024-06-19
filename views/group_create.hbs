@@ -1,14 +1,15 @@
-<main>
-    <h1 class="text-center">Créer un groupe</h1>
+<main aria-labelledby="create-group-title">
+    <h1 class="text-center" id="create-group-title">Créer un groupe</h1>
 
     <div class="container mt-2">
-        <form action="/group/create" method="POST" onsubmit="return groupCheck()">
+        <form action="/group/create" method="POST" onsubmit="return groupCheck()" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-12">
                     <div class="form-group">
                         <label for="groupName" class="mb-1 fs-4"> Nom du groupe</label>
-                        <input type="text" id="groupName" name="groupName" class="form-control border-primary-subtle">
-                        <div id="groupName-error" class="error-container"></div> <!-- Conteneur d'erreur -->
+                        <input type="text" id="groupName" name="groupName" class="form-control border-primary-subtle"
+                            aria-label="Nom du groupe">
+                        <div id="groupName-error" class="error-container" aria-live="polite"></div> <!-- Conteneur d'erreur -->
                     </div>
                 </div>
             </div>
@@ -17,8 +18,8 @@
                 <label for="groupDescription" class="mb-2 fs-4"><i class="bi bi-vector-pen"></i> Description
                     groupe</label>
                 <textarea id="groupDescription" name="groupDescription" class="form-control border-primary-subtle"
-                    rows="4"></textarea>
-                <div id="groupDescription-error" class="error-container"></div> <!-- Conteneur d'erreur -->
+                    rows="4" aria-label="Description du groupe"></textarea>
+                <div id="groupDescription-error" class="error-container" aria-live="polite"></div> <!-- Conteneur d'erreur -->
             </div>
 
             <div class="row align-items-center">
@@ -28,16 +29,17 @@
                         <label for="postal-code" class=" fs-4">Code Postal</label>
                         <input class="input border border-info" type="text" id="postal-code" name="postal-code"
                             aria-label="Code Postal" onclick="initializeEventHandlers()">
-                        <select name="city" class="" id="city" aria-label="input Selection de la ville">
+                        <select name="city" class="" id="city" aria-label="Ville">
                             <option value="">--Choisissez une ville--</option>
                             <option value=""></option>
                         </select>
                     </div>
-                    <div id="city-error" class="error-container"></div>
+                    <div id="city-error" class="error-container" aria-live="polite"></div>
                     <div class="form-group col-12 mt-4">
                         <label for="imgGroup" class="mb-2 fs-4"><i class="bi bi-image-fill fs-3 m-2"></i> Image</label>
-                        <input type="file" id="imgGroup" name="imgGroup" class="form-control border-primary-subtle">
-                        <div id="imgGroup-error" class="error-container"></div> <!-- Conteneur d'erreur -->
+                        <input type="file" id="imgGroup" name="imgGroup" class="form-control border-primary-subtle"
+                            aria-label="Image du groupe">
+                        <div id="imgGroup-error" class="error-container" aria-live="polite"></div> <!-- Conteneur d'erreur -->
 
                     </div>
 
@@ -55,6 +57,6 @@
                     {{/if}}
         </form>
     </div>
-    <script src="/js/cityFetch.js" defer></script>
-    <script src="/js/groupCheck.js" defer></script>
 </main>
+<script src="/js/cityFetch.js" defer></script>
+<script src="/js/groupCheck.js" defer></script>

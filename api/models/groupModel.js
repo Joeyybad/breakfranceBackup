@@ -1,7 +1,6 @@
 const { DataTypes } = require('sequelize');
 const config =  require('../../config');
-const GroupEvent = require('./groupEventModel');
-const Event = require('./eventModel');
+
 
 
 const Group = config.sequelize.define('groups', {

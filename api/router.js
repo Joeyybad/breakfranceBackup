@@ -1,16 +1,16 @@
 const express = require('express');
-const { body, param, validationResult } = require('express-validator');
+const { body, param } = require('express-validator');
+const protectSearch = require('./middleware/protectSearch')
+const isAuthenticated = require('./middleware/isAuthenticated')
 const upload = require('../multer-config');
 
 const homeController = require('./controllers/homeController');
 const eventController = require('./controllers/eventController');
-const commentController = require('./controllers/commentController');
 const userController = require('./controllers/userController');
 const groupController = require('./controllers/groupController');
-const categorieController = require('./controllers/categorieController');
+const categoryController = require('./controllers/categoryController');
 
-const protectSearch = require('./middleware/protectSearch')
-const isAuthenticated = require('./middleware/isAuthenticated');
+;
 
 
 
@@ -21,16 +21,24 @@ const router = express.Router();
 router.route('/')
     .get(homeController.get);
 router.route('/faq')
-    .get(homeController.faq)
+    .get(homeController.faq);
+
+router.route('/conditions')
+    .get(homeController.conditions)
+
+
 
 router.route('/search')
     .post(protectSearch, homeController.search);
+
+router.route('/events/searchByCity')
+    .post(homeController.searchByCity)
 
 //<-----------  Event Routes   ----------->
 router.route('/event/create')
     .get(eventController.get)
     .post(
-        upload.single('eventImage'), // Middleware Multer pour gérer le téléchargement de l'image
+        upload.single('eventImg'), 
         body('eventName')
             .exists().withMessage('Données incorrectes')
             .trim()
@@ -53,10 +61,11 @@ router.route('/event/create')
         body('city')
             .notEmpty().withMessage('Données incorrectes')
             .escape(),
-        eventController.post
-    );
+        eventController.postEvent);
+
 router.route('/event/search')
     .post(protectSearch, eventController.search)
+
 router.route('/event/read/:id')
     .get([
         param('id').exists().withMessage("Données incorrectes")
@@ -68,7 +77,7 @@ router.route('/event/list')
 router.route('/event/update/:id')
     .get(eventController.getUpdate)
     .post(
-        upload.single('eventImage'), // gestion img Multer
+        upload.single('eventImg'), // gestion img Multer
         body('eventName')
             .exists().withMessage('Données incorrectes')
             .trim()
@@ -97,36 +106,19 @@ router.route('/event/update/:id')
 router.route('/event/delete/:id')
     .post(eventController.eventDelete);
 
-//<-----------  Comment Routes   ----------->
-router.get('/event/read/:eventId', commentController.getCommentsByEvent);
+router.route('/event/:id/register')
+    .post(isAuthenticated, eventController.registerUserToEvent)
+    
+router.route('/user/unregister/:userId/:eventId')
+    .get(userController.removeregister)
 
-router.post('/event/read/:eventId/comment', [
-    body('name')
-        .trim()
-        .notEmpty().withMessage('Données incorrectes')
-        .isLength({ max: 100 }).withMessage('Données incorrectes')
-        .escape(),
-    body('comment')
-        .trim()
-        .notEmpty().withMessage('Données incorrectes')
-        .isLength({ max: 1000 }).withMessage('Données incorrectes')
-        .escape()
-], commentController.post);
+router.route('/event/registrated/users')
+    .get(eventController.getRegistratedUsers)
 
-router.post('/event/read/:eventId/comment/update/:id', [
-    body('name')
-        .trim()
-        .notEmpty().withMessage('Données incorrectes')
-        .isLength({ max: 100 }).withMessage('Données incorrectes')
-        .escape(),
-    body('comment')
-        .trim()
-        .notEmpty().withMessage('Données incorrectes')
-        .isLength({ max: 1000 }).withMessage('Données incorrectes')
-        .escape()
-], commentController.postcommentUpdate);
+router.route('/event/:eventId/user/:userId/delete')
+    .post(eventController.deleteRegistratedUsers)
 
-router.post('/event/read/:eventId/comment/delete/:commentId', commentController.deleteComment);
+
 
 //<----------- Group Routes   ----------->
 router.route('/group/list')
@@ -141,75 +133,85 @@ router.route('/group/read/:id')
 router.route('/group/create')
     .get(groupController.get)
     .post(
-        upload.single('groupImg'), // Middleware Multer pour gérer le téléchargement de l'image
+        upload.single('imgGroup'), // Middleware Multer pour gérer le téléchargement de l'image
         body('groupName')
-            .exists().withMessage('Données incorrectes')
+            .exists().withMessage('Le nom du groupe est requis.')
             .trim()
-            .isLength({ min: 2, max: 50 }).withMessage('Données incorrectes')
-            .notEmpty().withMessage('Données incorrectes')
+            .isLength({ min: 2, max: 50 }).withMessage('Le nom du groupe doit contenir entre 2 et 50 caractères.')
+            .notEmpty().withMessage('Le nom du groupe ne peut pas être vide.')
             .escape(),
         body('groupDescription')
-            .exists().withMessage('Données incorrectes')
+            .exists().withMessage('La description du groupe est requise.')
             .trim()
-            .isLength({ min: 10, max: 200 }).withMessage('Données incorrectes')
-            .notEmpty().withMessage('Données incorrectes')
+            .isLength({ min: 10, max: 200 }).withMessage('La description du groupe doit contenir entre 10 et 200 caractères.')
+            .notEmpty().withMessage('La description du groupe ne peut pas être vide.')
             .escape(),
-        body('groupCity')
-            .exists().withMessage('Données incorrectes')
+        body('city')
+            .exists().withMessage('La ville du groupe est requise.')
             .trim()
-            .notEmpty().withMessage('Données incorrectes')
+            .notEmpty().withMessage('La ville du groupe ne peut pas être vide.')
             .escape(),
-        groupController.create
-    );
+        groupController.postGroup);
+
+router.route('/group/:id')
+    .get(groupController.read);
+
 router.route('/group/update/:id')
-    .get(groupController.read)
-    .post(groupController.groupUpdate)
+    .post(upload.single('imgGroup'), groupController.groupUpdate);
 
 
 //<-----------  User Routes   ----------->
 router.route('/user/register')
     .get(userController.get)
     .post(
-        [ 
-        body('email')
-            .notEmpty().withMessage('L\'adresse e-mail est requise.')
-            .isEmail().withMessage('L\'adresse e-mail n\'est pas valide.')
-            .trim()
-            .escape(),
+        [
+            body('email')
+                .notEmpty().withMessage('L\'adresse e-mail est requise.')
+                .isEmail().withMessage('L\'adresse e-mail n\'est pas valide.')
+                .trim()
+                .escape(),
 
-        body('password')
-            .isLength({ min: 6 }).withMessage('Le mot de passe doit comporter au moins 8 caractères.')
-            .matches(/[a-z]/).withMessage('Le mot de passe doit contenir au moins une lettre minuscule.')
-            .matches(/[A-Z]/).withMessage('Le mot de passe doit contenir au moins une lettre majuscule.')
-            .matches(/[0-9]/).withMessage('Le mot de passe doit contenir au moins un chiffre.')
-            .matches(/[!@#$%^&*(),.?":{}|<>]/).withMessage('Le mot de passe doit contenir au moins un caractère spécial.')
-            .custom((value, { req }) => {
-                if (value !== req.body.confPassword) {
-                    throw new Error('Les mots de passe ne correspondent pas.');
-                }
-                return true;
-            })
-            .trim()
-            .escape(),
+            body('password')
+                .isLength({ min: 6 }).withMessage('Le mot de passe doit comporter au moins 8 caractères.')
+                .matches(/[a-z]/).withMessage('Le mot de passe doit contenir au moins une lettre minuscule.')
+                .matches(/[A-Z]/).withMessage('Le mot de passe doit contenir au moins une lettre majuscule.')
+                .matches(/[0-9]/).withMessage('Le mot de passe doit contenir au moins un chiffre.')
+                .matches(/[!@#$%^&*(),.?":{}|<>]/).withMessage('Le mot de passe doit contenir au moins un caractère spécial.')
+                .custom((value, { req }) => {
+                    if (value !== req.body.confPassword) {
+                        throw new Error('Les mots de passe ne correspondent pas.');
+                    }
+                    return true;
+                })
+                .trim()
+                .escape(),
 
-        body('firstname')
-            .notEmpty().withMessage('Le prénom est requis.')
-            .trim()
-            .escape(),
+            body('firstname')
+                .notEmpty().withMessage('Le prénom est requis.')
+                .trim()
+                .escape(),
 
-        body('lastname')
-            .notEmpty().withMessage('Le nom est requis.')
-            .trim()
-            .escape(),
+            body('lastname')
+                .notEmpty().withMessage('Le nom est requis.')
+                .trim()
+                .escape(),
 
-        body('date')
-            .notEmpty().withMessage('La date de naissance est requise.')
-            .isDate().withMessage('La date de naissance n\'est pas valide.'),
+            body('date')
+                .notEmpty().withMessage('La date de naissance est requise.')
+                .isDate().withMessage('La date de naissance n\'est pas valide.'),
 
-        body('city')
-            .notEmpty().withMessage('La ville est requise.')
-            .trim()
-            .escape()
+            body('city')
+                .notEmpty().withMessage('La ville est requise.')
+                .trim()
+                .escape(),
+
+            body('CGU')
+                .custom(value => {
+                    if (!value) {
+                        throw new Error('Vous devez accepter les conditions générales d\'utilisation.');
+                    }
+                    return true;
+                })
 
         ], userController.post);
 
@@ -218,12 +220,12 @@ router.route('/user/login')
     .post([
         body('email')
             .notEmpty().withMessage('L\'adresse e-mail est requise')
-            .isEmail().withMessage('L\'adresse e-mail doit être valide')
+            .isEmail().withMessage('L\'adresse e-mail invalide')
             .trim()
             .escape(),
         body('password')
             .notEmpty().withMessage('Le mot de passe est requis')
-            .isLength({ min: 6 }).withMessage('Le mot de passe doit contenir au moins 6 caractères')
+            .isLength({ min: 8 }).withMessage('Le mot de passe ne respecte pas les critères requis')
             .trim()
             .escape()
     ], userController.postLogin);
@@ -231,20 +233,15 @@ router.route('/user/login')
 router.route('/user/list')
     .get(userController.list);
 
-router.route('/user/delete/:id')
-    .post(userController.delete);
-
-
-router.route('/user/update/:id')
-    .get(userController.getUpdate)
-    .post([                
+    router.route('/user/update')
+    .post([
         body('email')
             .notEmpty().withMessage('Données incorrectes')
             .isEmail().withMessage('Données incorrectes')
             .trim()
             .escape(),
         body('password')
-            .optional()
+            .optional()  // Le mot de passe est facultatif
             .isLength({ min: 6 }).withMessage('Données incorrectes')
             .matches(/[a-z]/).withMessage('Données incorrectes')
             .matches(/[A-Z]/).withMessage('Données incorrectes')
@@ -252,7 +249,7 @@ router.route('/user/update/:id')
             .matches(/[!@#$%^&*(),.?":{}|<>]/).withMessage('Données incorrectes')
             .custom((value, { req }) => {
                 if (value && value !== req.body.confPassword) {
-                    throw new Error('Données incorrectes');
+                    throw new Error('Les mots de passe ne correspondent pas.');
                 }
                 return true;
             })
@@ -274,107 +271,41 @@ router.route('/user/update/:id')
             .trim()
             .escape(),
     ], userController.postProfileUpdate);
-    
-router.route('/user/profil')
-    .get(isAuthenticated, userController.profil)
-    .post([
-        body('email')
-            .optional()
-            .isEmail().withMessage('L\'adresse e-mail n\'est pas valide.')
-            .trim()
-            .escape(),
-        body('firstname')
-            .optional()
-            .trim()
-            .escape(),
-        body('lastname')
-            .optional()
-            .trim()
-            .escape(),
-        body('city')
-            .optional()
-            .trim()
-            .escape(),
-        body('oldPassword')
-            .optional()
-            .trim()
-            .escape(),
-        body('newPassword')
-            .optional()
-            .isLength({ min: 6 }).withMessage('Le mot de passe doit comporter au moins 6 caractères.')
-            .matches(/[a-z]/).withMessage('Le mot de passe doit contenir au moins une lettre minuscule.')
-            .matches(/[A-Z]/).withMessage('Le mot de passe doit contenir au moins une lettre majuscule.')
-            .matches(/[0-9]/).withMessage('Le mot de passe doit contenir au moins un chiffre.')
-            .matches(/[!@#$%^&*(),.?":{}|<>]/).withMessage('Le mot de passe doit contenir au moins un caractère spécial.')
-            .trim()
-            .escape()
-    ], userController.postProfileUpdate);
 
-router.route('/user/update-profil')
-    .post([
-      body('email')
-        .optional()
-        .isEmail().withMessage('L\'adresse e-mail n\'est pas valide.')
-        .trim()
-        .escape(),
-      body('firstname')
-        .optional()
-        .trim()
-        .escape(),
-      body('lastname')
-        .optional()
-        .trim()
-        .escape(),
-      body('city')
-        .optional()
-        .trim()
-        .escape(),
-      body('oldPassword')
-        .optional()
-        .trim()
-        .escape(),
-      body('newPassword')
-        .optional()
-        .isLength({ min: 6 }).withMessage('Le mot de passe doit comporter au moins 6 caractères.')
-        .matches(/[a-z]/).withMessage('Le mot de passe doit contenir au moins une lettre minuscule.')
-        .matches(/[A-Z]/).withMessage('Le mot de passe doit contenir au moins une lettre majuscule.')
-        .matches(/[0-9]/).withMessage('Le mot de passe doit contenir au moins un chiffre.')
-        .matches(/[!@#$%^&*(),.?":{}|<>]/).withMessage('Le mot de passe doit contenir au moins un caractère spécial.')
-        .custom((value, { req }) => {
-          if (value !== req.body.confNewPassword) {
-            throw new Error('Les nouveaux mots de passe ne correspondent pas.');
-          }
-          return true;
-        })
-        .trim()
-        .escape()
-    ], userController.postProfileUpdate);
+router.route('/user/profil/:id')
+    .get(isAuthenticated, userController.profil);
 
 router.route('/user/logout')
     .get(userController.logout);
 
-//<-----------  Categorie Routes   ----------->
-router.route('/categorie/create')
+router.route('/user/list')
+    .get(userController.list)
+
+//<-----------  category Routes   ----------->
+router.route('/category/create')
+    .get(categoryController.createCat)
     .post(
-        body('categoryName')
+        body('catName')
             .exists().withMessage('Données incorrectes')
             .trim()
             .isLength({ min: 2, max: 50 }).withMessage('Données incorrectes')
             .notEmpty().withMessage('Données incorrectes')
             .escape(),
-        body('categoryDescription')
-            .exists().withMessage('Données incorrectes')
-            .trim()
-            .isLength({ min: 10, max: 200 }).withMessage('Données incorrectes')
-            .notEmpty().withMessage('Données incorrectes')
-            .escape(),
-        categorieController.createCat
-    );
+        categoryController.postCat);
+router.route('/category/update/:id')
+    .get(categoryController.getCatUpdate)
+    .post([
+        body('catName')
+            .exists().trim()
+            .isLength({ min: 2, max: 20 }).withMessage('Contenu incorrecte')
+            .notEmpty().withMessage('Ce champ ne doit pas être vide.')
+            .escape()],
+        categoryController.postCatUpdate)
 
-router.route('/categorie/list')
-    .get(categorieController.listCat);
+router.route('/category/list')
+    .get(categoryController.listCat);
 
-router.route('/categorie/delete/:id')
-    .post(categorieController.catDelete);
+router.route('/category/delete/:id')
+    .post(categoryController.catDelete);
 
 module.exports = router;

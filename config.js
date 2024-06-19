@@ -1,12 +1,11 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize } = require('sequelize');
 
-// Option 3: Passing parameters separately (other dialects)
-const sequelize = new Sequelize('blog', 'root', '', {
+const sequelize = new Sequelize('breakfrancenode', 'root', '', {
   host: 'localhost',
   dialect: 'mysql' ,
 });
 
-// Synchroniser les associations
+
 sequelize.sync();
 
 const sessionSecret ='keyboard dog'

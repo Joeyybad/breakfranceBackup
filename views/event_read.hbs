@@ -1,106 +1,60 @@
-<div class="container-fluid">
-    <div class="row flex-row d-flex justify-content-center">
-        <div class=" col-8 col-lg-8 col-md-10  mx-auto mt-5 mb-2">
-            <div class="card border-0">
-                <img src="{{ event.game.imageUrl}}" class="card-img-top imgCover" alt="GameImg" />
-                <div class="card-header">
-                    <small>
-                        <div class="rounded-pill badge text-bg-primary ms-2">
-                            <i class="bi bi-person-plus-fill"></i>
-                            <span aria-label='Créé le {{moment event.createdAt format="DD/MM/YYYY"}}'>
-                                Créé le {{moment event.createdAt format="DD/MM/YYYY HH:mm"}}
-                            </span>
-                        </div>
-                    </small>
-                    <small>
-
-                <div class="panel-body m-2 row">
-                    <div class="col-12 mx-auto text-break">
-                        {{event.event_description}}
-                    </div>
-                </div>
-                 <div class="panel-body m-2 row">
-                    <div class="col-12 mx-auto text-break">
-                        <p class="card-text fw-semibold"><em>le {{ event.event_date }} à {{ event.event_hour }} à {{
-                            event.city }}</em></p>
-                        <p>Places disponibles : / {{ event.available_place }}</p>
-                    </div>
-                </div>
-
-                <hr>
-                <div class="panel-footer m-2">
-                    <div class="list-group">
-                        {{#each event.comments}}
-                        <a href="#" class="list-group-item list-group-item-action list-group-item-info">
-                            <em><b>{{this.name}}</b></em> : {{this.comment}}
-                        </a>
-                        <a href="/comment/{{this.id}}" type="button" class="btn btn-outline-warning m-2" data-bs-toggle="modal" data-bs-target="#ModalCom{{this.id}}">
-                            Modifier commentaire
-                        </a>
-                        <button type="button" class="btn btn-outline-danger m-2" data-bs-toggle="modal" data-bs-target="#ModalSupp{{this.id}}">
-                            Supprimer commentaire
-                        </button>
-
-                        <!-- Pop up pour modifier -->
-                        <div class="modal fade" id="ModalCom{{this.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4>Modifier un commentaire</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="/comment/update/{{this.id}}" method="post">
-                                            <div class="mb-3">
-                                                <label for="exampleFormControlInput1" class="form-label">Nom</label>
-                                                <input name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="name" value="{{this.name}}">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="exampleFormControlTextarea1" class="form-label">Commentaire</label>
-                                                <textarea name="comment" class="form-control" id="exampleFormControlTextarea1" rows="3">{{this.comment}}</textarea>
-                                            </div>
-                                            <button type="submit" class="btn btn-warning">Modifier</button>
-                                        </form>
-                                    </div>
+<main>
+    <div class="container-fluid">
+        <div class="row flex-row d-flex justify-content-center">
+            <div class="col-8 col-lg-8 col-md-10 mx-auto mt-5 mb-2">
+                <div class="card border-0">
+                    <img src="{{#if event.event_image }} {{event.event_image}} {{else}} /images/eventNotFound.png {{/if}}"
+                        class="card-img-top imgCover" alt="Image de l'évènement" />
+                    <div class="card-header">
+                        <small>
+                            <div class="rounded-pill badge text-bg-primary ms-2">
+                                <i class="bi bi-file-earmark-plus fs-5"></i>
+                                <span class="fs-5" aria-label='Créé le {{formatDateTime event.createdAt "DD/MM/YYYY HH:mm"}}'>
+                                    Créé le {{formatDateTime event.createdAt "DD/MM/YYYY HH:mm"}}
+                                </span>
+                            </div>
+                        </small>
+                        <small>
+                            <div class="panel-body m-2 row text-center">
+                                <h1 class="card-title mt-1 fw-semibold  text-center mb-4">{{ event.event_name }}
+                                </h1>
+                                <div class="col-12 mx-auto text-break text-center" aria-describedby="event-description">
+                                    {{event.event_description}}
                                 </div>
                             </div>
-                        </div>
-                        <!-- Fin pop up Modif -->
+                            <div class="panel-body m-2 row text-center">
+                                <div class="col-12 mx-auto text-break">
+                                    <p class="card-text fw-semibold fs-5">
+                                        <em>le {{formatDate event.event_date "DD/MM/YYYY"}} à {{formatTime
+                                            event.event_time "HH:mm"}} à {{event.city}}</em>
+                                    </p>
+                                    <p>Places disponibles :
+                                        <span class="fs-5 text-danger fw-bold">{{availablePlaces}}</span> /
+                                        <span class="fs-5">{{ event.available_place }}</span>
+                                        {{#if message}}
+                                    <div class="alert alert-info">{{message}}</div>
+                                    {{/if}}
+                                    {{#if error}}
+                                    <div class="alert alert-danger">{{error}}</div>
+                                    {{/if}}
+                                    </p>
 
-                        <!-- Pop up pour supprimer -->
-                        <div class="modal fade" id="ModalSupp{{this.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <form action="/comment/delete/{{this.id}}" method="post">
-                                        <div class="modal-header">
-                                            <h4>Êtes-vous sûr de vouloir supprimer ce commentaire?</h4>
-                                        </div>
-                                        <button type="submit" class="btn btn-danger">Supprimer</button>
-                                    </form>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Fin pop up Supp -->
-
-                        {{/each}}
+                            {{#if firstname}}
+                            <div class="text-center">
+                                <form action="/event/{{event.id}}/register" method="post">
+                                    <button type="submit" class="btn rounded-pill btn-outline-success"
+                                        aria-label="S'inscrire">S'inscrire</button>
+                                </form>
+                            </div>
+                            {{/if}}
+                            <a href="/event/list" class="badge rounded-pill text-bg-primary fs-5"
+                                aria-label="Lien de retour">Retour</a>
+                        </small>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h1>Commentaire</h1>
-                    <form action="/comment/create/{{event.id}}" method="post">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Nom</label>
-                            <input name="name" type="text" class="form-control" id="name" aria-describedby="nameHelp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="comment" class="form-label">Commentaire</label>
-                            <textarea name="comment" class="form-control" id="comment" rows="3"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Publier</button>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</main>

@@ -20,6 +20,7 @@ function registerCheck() {
     let password2 = document.querySelector("#confPassword").value.trim();
     let postalCode = document.querySelector("#postal-code").value.trim();
     let city = document.querySelector('#city').value;
+    let CGU = document.querySelector('#CGU');
     const today = new Date();
     const selectedDate = new Date(date);
 
@@ -74,6 +75,11 @@ function registerCheck() {
         return false;
     }
 
+    if (!CGU.checked) {
+        error("Veuillez accepter les conditions générales d'utilisation pour continuer.", "CGU");
+        return false;
+    }
+
     // Vérifications des mots de passe (décommenter si nécessaire)
     // if (password !== password2) {
     //     error("Les deux mots de passe sont différents !", "confPassword");
@@ -97,6 +103,11 @@ function resetErrors() {
 
 function error(message, id) {
     const errorContainer = document.getElementById(id + "-error");
+    if (!errorContainer) {
+        console.error(`No error container found for id: ${id}`);
+        return;
+    }
+
     if (errorContainer.children.length > 0) {
         return; // Si un message d'erreur existe déjà, ne pas en ajouter un nouveau
     }

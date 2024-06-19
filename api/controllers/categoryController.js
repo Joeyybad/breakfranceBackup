@@ -1,11 +1,12 @@
 const { Op } = require('sequelize');
 const { validationResult } = require('express-validator');
-const Categorie = require('../models/categorieModel');
+const Category = require('../models/categoryModel');
+const Event = require ('../models/eventModel')
 
 module.exports = {
     listCat: async (req, res) => {  // <------ liste des catégories  ------>
         try {
-            const categories = await Categorie.findAll({ raw: true });
+            const categories = await Category.findAll({ raw: true });
             console.log(categories);
             res.render('category_list', { categories });
         } catch (error) {
@@ -29,7 +30,7 @@ module.exports = {
             const catName = req.body.catName.trim();
 
             // Rechercher si la catégorie existe déjà
-            const catCorres = await Categorie.findOne({
+            const catCorres = await Category.findOne({
                 where: {
                     cat_name: catName
                 }
@@ -42,11 +43,11 @@ module.exports = {
                 return res.render('category_create', { error: error });
             } else {
                 // Créer la nouvelle catégorie
-                const categoryCreated = await Categorie.create({
+                const categoryCreated = await Category.create({
                     cat_name: catName
                 });
                 console.log("Catégorie créée :", categoryCreated); 
-                return res.redirect('/category/list');
+                return res.render('category_create',{message : "Catégorie crée"} );
             }
         } catch (error) {
             console.error("Erreur lors de la création de la catégorie :", error);
@@ -55,7 +56,7 @@ module.exports = {
     },    
     getCatUpdate: async (req, res) => {  //<---- récupère une catégorie spécifique par son ID ---->
         try {
-            const category = await Categorie.findByPk(req.params.id, { raw: true });
+            const category = await Category.findByPk(req.params.id, { raw: true });
             if (!category) {
                 return res.status(404).send("La catégorie à modifier n'a pas été trouvée.");
             }
@@ -70,11 +71,11 @@ module.exports = {
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
-                const category = await Categorie.findByPk(req.params.id, { raw: true });
+                const category = await Category.findByPk(req.params.id, { raw: true });
                 return res.render('category_update', { category, errors: errors.array() });
             }
     
-            const [updatedRowsCount, updatedRows] = await Categorie.update({
+            const [updatedRowsCount, updatedRows] = await Category.update({
                 cat_name: req.body.catName.trim(),
             }, {
                 where: {
@@ -88,7 +89,7 @@ module.exports = {
             }
     
             const updatedCat = updatedRows[0];
-            res.redirect('/category/list');
+            res.render('category_list');
         } catch (error) {
             console.error("Une erreur s'est produite lors de la mise à jour de la catégorie :", error);
             return res.status(500).send("Une erreur est survenue lors de la mise à jour de la catégorie.");
@@ -97,7 +98,7 @@ module.exports = {
 
     catDelete: async (req, res) => {  // <-----supprime une catégorie spécifique par son ID ------>
         try {
-            const rowsDeleted = await Categorie.destroy({
+            const rowsDeleted = await Category.destroy({
                 where: {
                     id: req.params.id
                 }

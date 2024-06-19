@@ -1,31 +1,37 @@
-<div class="container">
+<main>
     {{#each events}}
-    <h4 class="dynapuff">Liste des Utilisateurs Inscrits à l'Événement {{this.event_name}}</h4>
-    <div class="col-md-8 mx-auto">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Prénom</th>
-                    <th scope="col">Adresse Email</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each this.users}}
-                <tr>
-                    <td>{{this.nom}}</td>
-                    <td>{{this.prenom}}</td>
-                    <td>{{this.email}}</td>
-                    <td>
-                        <form action="/event/{{../id}}/user/{{this.id}}/delete" method="post">
-                            <button type="submit" class="btn btn-danger"> <i class="bi bi-x-circle-fill"></i> Supprimer</button>
-                        </form>
-                    </td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
+     {{#if (or @root.isAdmin (eq ../userId this.userId))}}
+    <div class="event-table mb-5" aria-labelledby="event-title-{{this.id}}">
+        <h4 id="event-title-{{this.id}}" class="Knewave text-center">Liste des Utilisateurs Inscrits à l'Événement {{this.event_name}}</h4>
+        <div class="col-md-8 mx-auto">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Adresse Email</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each users}}
+                    <tr>
+                        <td>{{this.lastname}}</td>
+                        <td>{{this.firstname}}</td>
+                        <td>{{this.email}}</td>
+                        <td>
+                            <form action="/event/{{../id}}/user/{{this.id}}/delete" method="post">
+                                <button type="submit" class="btn btn-danger" aria-label="Supprimer utilisateur {{this.prenom}} {{this.nom}}">
+                                    <i class="bi bi-x-circle-fill"></i> Supprimer
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
     </div>
+    {{/if}}
     {{/each}}
-</div>
+</main>
