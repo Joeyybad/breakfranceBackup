@@ -130,7 +130,6 @@ module.exports = {
     }
   },
   getLogin: (req, res) => {
-    console.log(req.session);
     res.render("login");
   },
   postLogin: async (req, res) => {
@@ -271,6 +270,10 @@ module.exports = {
       },
     });
     res.redirect("/");
+  },
+
+  denied: (req,res)=>{
+    res.render('acces_denied')
   },
 
   logout: (req, res) => {

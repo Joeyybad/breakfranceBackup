@@ -53,9 +53,9 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: false,       // Si votre application utilise HTTPS, mettez ceci à true
-      maxAge: 3600000,     // 1 heure
-      httpOnly: true       // Ajoute l'option HttpOnly
+      secure: false,       // si passé à true s'assure que les cookies ne sont transmis que via des connexions sécurisées HTTPS
+      maxAge: 3600000,     //durée de vie du cookie en millisecondes = 1 heure
+      httpOnly: true       // Empêche l'accès au cookie via JavaScript côté client
     },
     store: new SequelizeStore({ db: config.sequelize }),
     proxy: true,
